@@ -129,6 +129,10 @@ class Ui_Otvetstvenniy(object):
         problem = ['яма', 'ямы', 'яме', 'яму', 'ямой', 'ям', 'ямам', 'ямами', 'ямах', 'ямки', 'светофор', 'светофора',
                    'светофору', 'светофором', 'светофоре', 'светофоры', 'светофоров', 'светофорам', 'светофорами',
                    'светофорах', 'мусор', 'мусора', 'мусору', 'мусором', 'мусоре']
+        yama = ['яма', 'ямы', 'яме', 'яму', 'ямой', 'ям', 'ямам', 'ямами', 'ямах', 'ямки']
+        svetofor = ['светофор', 'светофора', 'светофору', 'светофором', 'светофоре', 'светофоры', 'светофоров', 'светофорам',
+                   'светофорами','светофорах']
+        mysor = ['мусор', 'мусора', 'мусору', 'мусором', 'мусоре']
         otsortiroval_keywords = list(set(massive_texta) & set(problem))
         for i in range(len(massive_texta)):
             if massive_texta[i] in problem:
@@ -144,6 +148,7 @@ class Ui_Otvetstvenniy(object):
                 spasibo.buttonClicked.connect(self.obrashaisa)
 
                 spasibo.exec_()
+
                 if massive_texta[i] in massiv1:
                     spasibo = QMessageBox()
                     spasibo.setWindowTitle('Спасибо за обращение!')
@@ -182,6 +187,43 @@ class Ui_Otvetstvenniy(object):
 
                     spasibo.exec_()
                 break
+        for k in massiv1:
+            if massive_texta[i] in yama:
+
+                spasibo = QMessageBox()
+                spasibo.setWindowTitle('Спасибо за обращение!')
+                spasibo.setText('Ваша проблема относится к категории: "Ямы на дороге/тротуаре".')
+                spasibo.setIcon(QMessageBox.Question)
+                spasibo.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                spasibo.setDefaultButton(QMessageBox.Close)
+                spasibo.buttonClicked.connect(self.obrashaisa)
+
+                spasibo.exec_()
+
+            elif massive_texta[i] in svetofor:
+
+                spasibo = QMessageBox()
+                spasibo.setWindowTitle('Спасибо за обращение!')
+                spasibo.setText('Ваша проблема относится к категории: "Сломанный светофор".')
+                spasibo.setIcon(QMessageBox.Question)
+                spasibo.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                spasibo.setDefaultButton(QMessageBox.Close)
+                spasibo.buttonClicked.connect(self.obrashaisa)
+
+                spasibo.exec_()
+
+            elif massive_texta[i] in mysor:
+                spasibo = QMessageBox()
+                spasibo.setWindowTitle('Спасибо за обращение!')
+                spasibo.setText('Ваша проблема относится к категории: "Проблемы с мусором".')
+                spasibo.setIcon(QMessageBox.Question)
+                spasibo.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                spasibo.setDefaultButton(QMessageBox.Close)
+                spasibo.buttonClicked.connect(self.obrashaisa)
+
+                spasibo.exec_()
+
+
         konechniy_spisok_problem = massiv1 + otsortiroval_keywords
         konechniy_spisok_problem = list(set(konechniy_spisok_problem))
         print(konechniy_spisok_problem)
