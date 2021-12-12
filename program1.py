@@ -128,6 +128,7 @@ class Ui_Otvetstvenniy(object):
         problem = ['яма', 'ямы', 'яме', 'яму', 'ямой', 'ям', 'ямам', 'ямами', 'ямах', 'ямки', 'светофор', 'светофора',
                    'светофору', 'светофором', 'светофоре', 'светофоры', 'светофоров','светофорам', 'светофорами',
                    'светофорах', 'мусор', 'мусора', 'мусору', 'мусором', 'мусоре']
+        j = list(set(massive_texta)&set(problem))
         for i in range(len(massive_texta)):
             if massive_texta[i] in problem:
                 print('')
@@ -180,10 +181,9 @@ class Ui_Otvetstvenniy(object):
 
                     spasibo.exec_()
                 break
-        print(g)
-        print((' ').join(g))
-        h = g
-
+        k = g + j
+        k = list(set(k))
+        print(k)
 
 
 
