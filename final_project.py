@@ -11,7 +11,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 
-massive_problem = []
+massiv1 = []
+
 
 class Ui_Otvetstvenniy(object):
     def setupUi(self, Otvetstvenniy):
@@ -59,7 +60,7 @@ class Ui_Otvetstvenniy(object):
         self.label_2.setFont(font)
         self.label_2.setAutoFillBackground(False)
         self.label_2.setStyleSheet("color: #2E2E2E;\n"
-"")
+                                   "")
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
         self.label_2.setWordWrap(False)
         self.label_2.setObjectName("label_2")
@@ -78,8 +79,8 @@ class Ui_Otvetstvenniy(object):
         self.clean.setToolTipDuration(-1)
         self.clean.setStatusTip("")
         self.clean.setStyleSheet("background-color: #3DC4F5;\n"
-"color: #2E2E2E;\n"
-"border-radius: 20px;")
+                                 "color: #2E2E2E;\n"
+                                 "border-radius: 20px;")
         self.clean.setObjectName("clean")
 
         self.clean.clicked.connect(self.steret)
@@ -96,8 +97,8 @@ class Ui_Otvetstvenniy(object):
         self.report.setFont(font)
         self.report.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.report.setStyleSheet("background-color: #3DC4F5;\n"
-"color: #2E2E2E;\n"
-"border-radius: 20px;")
+                                  "color: #2E2E2E;\n"
+                                  "border-radius: 20px;")
         self.report.setObjectName("report")
 
         self.report.clicked.connect(self.pup)
@@ -123,12 +124,12 @@ class Ui_Otvetstvenniy(object):
         QtCore.QMetaObject.connectSlotsByName(Otvetstvenniy)
 
     def pup(self):
-        text = self.textEdit.toPlainText()
-        massive_texta = text.split(' ')
+        tekst_s_edita = self.textEdit.toPlainText()
+        massive_texta = tekst_s_edita.split(' ')
         problem = ['яма', 'ямы', 'яме', 'яму', 'ямой', 'ям', 'ямам', 'ямами', 'ямах', 'ямки', 'светофор', 'светофора',
-                   'светофору', 'светофором', 'светофоре', 'светофоры', 'светофоров','светофорам', 'светофорами',
+                   'светофору', 'светофором', 'светофоре', 'светофоры', 'светофоров', 'светофорам', 'светофорами',
                    'светофорах', 'мусор', 'мусора', 'мусору', 'мусором', 'мусоре']
-        massive_peresecheniy = list(set(massive_texta)&set(problem))
+        otsortiroval_keywords = list(set(massive_texta) & set(problem))
         for i in range(len(massive_texta)):
             if massive_texta[i] in problem:
                 print('')
@@ -143,7 +144,7 @@ class Ui_Otvetstvenniy(object):
                 spasibo.buttonClicked.connect(self.obrashaisa)
 
                 spasibo.exec_()
-                if massive_texta[i] in massive_problem:
+                if massive_texta[i] in massiv1:
                     spasibo = QMessageBox()
                     spasibo.setWindowTitle('Спасибо за обращение!')
                     spasibo.setText('Эта проблема уже решается.')
@@ -154,7 +155,7 @@ class Ui_Otvetstvenniy(object):
 
                     spasibo.exec_()
                 else:
-                    g.append(massive_texta[i])
+                    massiv1.append(massive_texta[i])
                 break
             elif massive_texta[i] not in problem:
                 print('')
@@ -169,7 +170,7 @@ class Ui_Otvetstvenniy(object):
                 spasibo.buttonClicked.connect(self.obrashaisa)
 
                 spasibo.exec_()
-                if massive_texta[i] in massive_problem:
+                if massive_texta[i] in massiv1:
                     spasibo = QMessageBox()
                     spasibo.setWindowTitle('Спасибо за обращение!')
                     spasibo.setText('Благодарим за Ваше обращение. Эта проблема уже решается.')
@@ -181,12 +182,9 @@ class Ui_Otvetstvenniy(object):
 
                     spasibo.exec_()
                 break
-        massive_konechniy = massive_problem + massive_peresecheniy
-        massive_konechniy = list(set(massive_konechniy))
-        print(massive_konechniy)
-
-
-
+        konechniy_spisok_problem = massiv1 + otsortiroval_keywords
+        konechniy_spisok_problem = list(set(konechniy_spisok_problem))
+        print(konechniy_spisok_problem)
 
     def ne_sas(self):
         ne_spasibo = QMessageBox()
@@ -200,28 +198,24 @@ class Ui_Otvetstvenniy(object):
 
         ne_spasibo.exec_()
 
-
     def sas(self):
         spasibo = QMessageBox()
         spasibo.setWindowTitle('Спасибо за обращение!')
         spasibo.setText('Благодарим за Ваше обращение. Вскоре проблема будет решена.')
         spasibo.setIcon(QMessageBox.Question)
-        spasibo.setStandardButtons(QMessageBox.Ok|QMessageBox.Cancel)
+        spasibo.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
         spasibo.setDefaultButton(QMessageBox.Close)
         spasibo.setInformativeText('Вы помогаете сделать город лучше!')
         spasibo.buttonClicked.connect(self.obrashaisa)
 
         spasibo.exec_()
 
-
-
     def obrashaisa(self, btn):
         if btn.text() == 'OK':
             self.textEdit.setText('')
             self.textEdit.setFocus()
         elif btn.text() == 'Cancel':
-            print('Спасибо')
-
+            print('проверка прошла')
 
     def steret(self):
         self.textEdit.setText('')
@@ -237,6 +231,7 @@ class Ui_Otvetstvenniy(object):
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     Otvetstvenniy = QtWidgets.QMainWindow()
     ui = Ui_Otvetstvenniy()
